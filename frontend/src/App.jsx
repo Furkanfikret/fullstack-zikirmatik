@@ -5,10 +5,11 @@ import { FaAngleDoubleUp } from "react-icons/fa";
 import { FaRegSave } from "react-icons/fa";
 import { PiSlideshowBold } from "react-icons/pi";
 import axios from 'axios';
-
-
 import '../src/css/myStill.css'
 import './App.css'
+
+
+const apiURL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [count,setCount] = useState(0);
@@ -26,7 +27,7 @@ function App() {
     const name = prompt("Lütfen bir zikir ismi giriniz : ");
     if(!name) return;
     try {
-      await axios.post('http://localhost:3000/save',{name:name,value:count});
+      await axios.post(`${apiURL}/save`,{name:name,value:count});
       alert('Kayıt Başarılı !');
     } catch (error) {
       console.log(error);
@@ -35,7 +36,7 @@ function App() {
   }
   const showZikirs =async () => {
     try {
-      const response = await axios.get('http://localhost:3000/records');
+      const response = await axios.get(`${apiURL}/records`);
       setRecords(response.data);
       setShowTable(true);
     } catch (error) {
@@ -46,7 +47,7 @@ function App() {
   const closeTable = () => setShowTable(false);
   const handleDelete = async(id) =>{
     try {
-      await axios.delete(`http://localhost:3000/delete/${id}`);
+      await axios.delete(`${apiURL}/delete/${id}`);
       setRecords(records.filter( item => item.id != id));
     } catch (error) {
       console.log('Silme Hatası',error);
