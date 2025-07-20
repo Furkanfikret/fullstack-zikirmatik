@@ -48,6 +48,10 @@ app.delete('/delete/:id',async(req,res) => {
         res.status(500).json({message:'Kayıt silinirken hata oluştu!'});
     }
 })
+app.get('/healthz', (req, res) => {
+  res.sendStatus(200);
+});
+
 app.listen(port,()=>{
     console.log(`The Server Is Running On ${port} port !`)
 })
