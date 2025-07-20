@@ -5,11 +5,11 @@ dotenv.config();
 const {Pool} = pkg;
 
 const pool = new Pool({
-    user:process.env.DB_USER_NAME,
-    host:process.env.DB_HOST_NAME,
-    database:process.env.DB_NAME,
-    password:process.env.DB_PASSWORD,
-    port:process.env.DB_PORT
+   connectionString: process.env.DB_CONNECT_URL,
+   ssl: {
+    rejectUnauthorized: false, // Neon için gerekli
+   },
+
 });
 export const testDB = async () => {
     try {
